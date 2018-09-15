@@ -1,0 +1,9 @@
+---
+  SVN_Parent_Path: "/app/svn"
+  svn_url_location: "svn"
+  svn_admin: "admin"
+  svn_adminpass: "admin"
+  svn_user1: "user1"
+  svn_user1pass: "test123"
+  svn_user2: "user2"
+  svn_user2pass: "test123"

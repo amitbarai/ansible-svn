@@ -1,0 +1,30 @@
+---
+- name: Step 1. Install Apache and SVN
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - httpd
+    - httpd-devel
+    - svn
+
+- name: Step 2. Apache start
+  service: name="httpd" state=started enabled=yes
+
+- name: Step 3. create SVN path
+  file: path=/{{ SVN_Parent_Path }} state=directory owner=apache group=apache mode=0755
+
+- name: Step 4. Configure Apache with Subversion 
+  template:  src=svn.conf dest=/etc/httpd/conf.d/svn.conf
+
+- name: Step 5. Create First SVN Repository
+  shell: htpasswd -cbm /etc/httpd/dav_svn.passwd {{ svn_admin }} {{ svn_adminpass }}
+  notify: reload apache
+
+- name: Step 6. Create 2nd for Subversion
+  shell: htpasswd -bm /etc/httpd/dav_svn.passwd {{ svn_user1 }} {{ svn_user1pass }}
+  notify: reload apache
+
+- name: Step 7. To create additional users, use following commands
+  shell: htpasswd -bm /etc/httpd/dav_svn.passwd {{ svn_user2 }} {{ svn_user2pass }}
+  notify: reload apache
