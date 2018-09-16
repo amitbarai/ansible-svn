@@ -1,4 +1,5 @@
 ---
+  svn_repo_name: "test"
   SVN_Parent_Path: "/app/svn"
   svn_url_location: "svn"
   svn_admin: "admin"

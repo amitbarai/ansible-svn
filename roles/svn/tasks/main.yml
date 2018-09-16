@@ -18,6 +18,9 @@
 - name: Step 4. Configure Apache with Subversion 
   template:  src=svn.conf dest=/etc/httpd/conf.d/svn.conf
 
+- name: Step 5. SVN repo creation {{ svn_repo_name }}
+  shell: svnadmin create /app/svn/{{ svn_repo_name }}
+
 - name: Step 5. Create First SVN Repository
   shell: htpasswd -cbm /etc/httpd/dav_svn.passwd {{ svn_admin }} {{ svn_adminpass }}
   notify: reload apache
